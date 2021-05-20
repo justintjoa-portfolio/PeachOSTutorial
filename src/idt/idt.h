@@ -1,6 +1,8 @@
 #ifndef IDT_H
 #define IDT_H
 
+#include "config.h"
+
 #include <stdint.h>
 
 struct idt_desc {
@@ -24,9 +26,18 @@ struct idtr_desc {
 
 
 struct idt_state {
-    struct idt_desc descriptor;
-    struct idtr_desc counter;
+    struct idtr_desc idtr_descriptor;
+    struct idt_desc* idt_descriptors;
+} __attribute__(
+    (packed)
+);
 
+void cleanUp(struct idt_state state) {
+    free(state.idt_descriptors);
+}
+
+struct InterruptDescriptorTable {
+    struct idt_state state;
 } __attribute__(
     (packed)
 );
