@@ -2,6 +2,7 @@
 #define IDT_H
 
 #include "config.h"
+#include "../modules/module.h";
 
 #include <stdint.h>
 
