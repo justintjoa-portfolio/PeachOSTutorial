@@ -8,7 +8,11 @@ struct DeletePromise {
     (packed)
 );
 
-
+struct idtr_desc generate(struct idtr_desc input, struct idt_desc* idt_array) {
+    input.limit = sizeof(idt_array) - 1;
+    input.base = idt_array;
+    return input;
+}
 
 
 void* new_mem_set(int c, size_t size) {
@@ -18,6 +22,8 @@ void* new_mem_set(int c, size_t size) {
     }
     return (void*) result;
 }
+
+
 
 struct idt_state idt_set(struct idt_state state, int interrupt_no, void* address) {;
     state.idt_descriptors[interrupt_no].offset_1 = (uint32_t) address & 0x0000ffff;

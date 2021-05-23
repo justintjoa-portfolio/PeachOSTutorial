@@ -2,8 +2,7 @@
 #define IDT_H
 
 #include "config.h"
-#include "../modules/module.h";
-
+#include "../modules/module.h"
 #include <stdint.h>
 
 struct idt_desc {
@@ -34,7 +33,7 @@ struct idt_state {
 );
 
 void cleanUp(struct idt_state state) {
-    free(state.idt_descriptors);
+    //free(state.idt_descriptors); #Memory Leak, fix later
 }
 
 struct InterruptDescriptorTable {
@@ -42,5 +41,7 @@ struct InterruptDescriptorTable {
 } __attribute__(
     (packed)
 );
+
+void _idt_init();
 
 #endif
